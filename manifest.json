@@ -18,13 +18,19 @@
       "run_at": "document_idle"
     }
   ],
+  "web_accessible_resources": [
+    {
+      "resources": ["pdf-lib.min.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
   "icons": {
-  "16": "icon-16.png",
-  "48": "icon-48.png",
-  "128": "icon-128.png"
-},
+    "16": "icon-16.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
+  },
   "action": {
-  "default_popup": "popup.html",
-  "default_title": "Set your Aquamark email"
-}
+    "default_popup": "popup.html",
+    "default_title": "Set your Aquamark email"
+  }
 }
