@@ -1,4 +1,4 @@
-importScripts('https://unpkg.com/pdf-lib@1.17.1');
+importScripts('pdf-lib.min.js');
 
 // Listen for watermark requests from content.js
 chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
