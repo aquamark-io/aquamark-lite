@@ -34,19 +34,25 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
   }
 });
 
-// Fetch the most recent logo file for the user
 async function fetchLatestLogoUrl(userEmail) {
-  const listUrl = `https://dvzmnikrvkvgragzhrof.supabase.co/storage/v1/object/list/logos/${userEmail}?limit=1&sortBy=created_at.desc`;
+  const listUrl = `https://dvzmnikrvkvgragzhrof.supabase.co/storage/v1/object/list/logos/${userEmail}`;
+  
   const response = await fetch(listUrl, {
     headers: {
-      apikey: 'YOUR_SUPABASE_ANON_KEY',
+      apikey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2em1uaWtydmt2Z3JhZ3pocm9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM5Njg5NzUsImV4cCI6MjA1OTU0NDk3NX0.FaHsjIRNlgf6YWbe5foz0kJFtCO4FuVFo7KVcfhKPEk',
       Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2em1uaWtydmt2Z3JhZ3pocm9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM5Njg5NzUsImV4cCI6MjA1OTU0NDk3NX0.FaHsjIRNlgf6YWbe5foz0kJFtCO4FuVFo7KVcfhKPEk'
     }
   });
+
   const data = await response.json();
-  if (!data.length) throw new Error('No logo found');
-  return `https://dvzmnikrvkvgragzhrof.supabase.co/storage/v1/object/public/logos/${userEmail}/${data[0].name}`;
+  if (!Array.isArray(data) || data.length === 0) {
+    throw new Error('No logo found for this user');
+  }
+
+  const filename = data[0].name;
+  return `https://dvzmnikrvkvgragzhrof.supabase.co/storage/v1/object/public/logos/${userEmail}/${filename}`;
 }
+
 
 // Embed watermark into PDF using PDFLib
 async function applyWatermark(inputBytes, logoUrl) {
