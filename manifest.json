@@ -24,6 +24,7 @@
     "128": "icons/icon.png"
   },
   "action": {
-    "default_title": "Aquamark Lite"
-  }
+  "default_popup": "popup.html",
+  "default_title": "Set your Aquamark email"
+}
 }
